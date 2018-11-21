@@ -4,6 +4,40 @@ output: html_document
 ---
 
 <style>
+
+.main-container {
+  max-width: 1800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.topnav {
+    background-color: lightgrey;
+    overflow: hidden;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+    float: left;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+    background-color: grey;
+    color: black;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+    background-color: #1CBDED;
+    color: white;
+}
+
 .g-grid {
   display: flex;
   justify-content: space-between;
@@ -17,7 +51,8 @@ output: html_document
   margin-left: 1rem;
   margin-bottom: 1rem;
   border-style: solid;
-  border-color: lightgrey
+  border-color: lightgrey;
+  border-width: thin;
 }
 
 .g-grid-cell:hover {
@@ -31,6 +66,14 @@ output: html_document
 }
 
 </style>
+
+<div class="topnav">
+  <a class="active" href="#home">Home</a>
+  <a href="#news">Blog</a>
+  <a href="#contact">Contact</a>
+  <a href="#about">About</a>
+</div>
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -373,9 +416,21 @@ m_numSep = leaflet(final)%>%
   		dashArray = "3",
   		fillOpacity = 0.7) %>%
   setView(lng = 138.6, lat = -34.93, zoom = 10)
-saveWidget(m_numSep, file="SA_explore.html")
+#saveWidget(m_numSep, file="SA_explore.html")
 ```
 
+
+```{r WA_explore, echo=FALSE, include=FALSE}
+source('clustering_heatmap_map.R')
+
+## interactive heatmap ## 
+interact = leaflet(wa)%>%addPolygons(color="black",weight=1) %>% 
+	addTiles() %>% 
+	addCircleMarkers(data=cen,lng=~lon,lat=~lat,color="red",fillOpacity = 0.25,radius = 0.5,group="Center") %>%
+	addCircleMarkers(data=del,lng=~lon,lat=~lat,fillOpacity = 0.5,color="green",radius =1,clusterOptions = markerClusterOptions(),group="All") %>%
+	setView(lng = 115.85, lat = -31.95, zoom = 6)
+#saveWidget(interact, file="WA_cluster_explore.html")
+```
 
 
 <div class="g-grid">
@@ -430,11 +485,20 @@ saveWidget(m_numSep, file="SA_explore.html")
     <div class="desc">Add a description of the image here</div>
   </div>
   
-  <div class="g-grid-cell"><iframe style="position:relative;width:100%;height:82.5%;" src="SA_explore.html"></iframe>
-  <div class="desc">Add a description of the image here</div>
+  <div class="g-grid-cell"><img style="position:relative;width:100%;height:82.5%;" src="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/animate_map.gif"/>
+    <div class="desc">Add a description of the image here</div>
   </div>
 </div>
 
+<div class="g-grid" style="height: 400px";>
+  <div class="g-grid-cell"><iframe style="position:relative;width:100%;height:87%;" src="SA_explore.html"></iframe><div class="desc">Add a description of the image here</div></div>
+  
+  <div class="g-grid-cell"><iframe style="position:relative;width:100%;height:87%;" src="WA_cluster_explore.html"></iframe><div class="desc">Add a description of the image here</div></div>
+</div>
+
+<div class="g-grid" style="height: 300px";>
+  <div class="g-grid-cell"><iframe style="position:relative;width:100%;height:85%;" src="patient_flow.html"></iframe><div class="desc">Add a description of the image here</div></div>
+</div>
 
 
 
