@@ -29,6 +29,7 @@ output: html_document
     text-align: center;
     border-top: 1px solid lightgrey;
 }
+
 </style>
 
 ```{r setup, include=FALSE}
@@ -39,6 +40,11 @@ knitr::opts_chunk$set(echo = TRUE)
 source('initialise_POC_dataset.R')
 setwd("C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio")
 
+map = read.csv(file="U:/Work/DOH_Reporting_Proof_of_Concept/Real/ICD_Mapping_Main.csv",na.strings = "NULL")
+map = map[which(duplicated(map$Diagnosis_Category) == F),]
+map = map[,c(3,6)] 
+temp = data 
+temp.2 = merge(temp, map, by.x = "Diagnosis.Classification", by.y = "Diagnosis_Category", all.x=TRUE)
 ```
 
 ## Data Visualisation
@@ -59,16 +65,10 @@ ggplot(data = datatab, aes(x = Service_Type, y = as.numeric(Freq), fill = Servic
 	geom_label(aes(y = Freq, label = Freq), alpha = 0, show.legend = FALSE) +
 	coord_polar(theta = "x") +
 	guides(fill=guide_legend(title="Service Type")) +
-	theme(legend.box.background = element_rect(colour="grey50"), 
-		legend.box.margin = margin(6, 6, 6, 6),
-		legend.key = element_rect(fill = "white", colour = "black"), 
-		legend.title = element_text(face = "bold"),
-		plot.title = element_text(face="bold", size = 18),
-		panel.background = element_rect(colour = "grey", fill=NA, size=1)) +
 	labs(
 		y = "Frequency",
 		x = "Service Type") +
-	theme(axis.text=element_text(size=12,face="bold")) + 
+	theme(axis.text=element_text(size=12,face="bold"), legend.position="none") + 
   theme(panel.background = element_rect(fill = "white"),
   plot.margin = margin(2, 2, 2, 2, "cm"))
 dev.off()
@@ -86,16 +86,10 @@ ggplot(data = datatab.2, aes(x = Service_Type, y = as.numeric(Occasions), fill =
 	geom_label(aes(y = Occasions, label = Occasions), alpha = 0, show.legend = FALSE) +
 	coord_polar(theta = "x") +
 	guides(fill=guide_legend(title="Service Type")) +
-	theme(legend.box.background = element_rect(colour="grey50"), 
-		legend.box.margin = margin(6, 6, 6, 6),
-		legend.key = element_rect(fill = "white", colour = "black"), 
-		legend.title = element_text(face = "bold"),
-		plot.title = element_text(face="bold", size = 18),
-		panel.background = element_rect(colour = "grey", fill=NA, size=1)) +
 	labs(
 		y = "Occasions of Service",
 		x = "Service Type") +
-	theme(axis.text=element_text(size=12,face="bold")) + 
+	theme(axis.text=element_text(size=12,face="bold"), legend.position="none") + 
   theme(panel.background = element_rect(fill = "white"),
   plot.margin = margin(2, 2, 2, 2, "cm"))
 dev.off()
@@ -119,12 +113,7 @@ ggplot(data=data, aes(x=svc_type, y=Occasions , fill=svc_type)) + geom_boxplot()
 		y = "Occasions of Service",
 		x = "Service Type") + 
 	guides(fill=guide_legend(title="Service Type")) + 
-	theme(axis.text=element_text(size=12,face="bold")) +
-	theme(legend.box.background = element_rect(colour="grey50"), 
-		legend.box.margin = margin(6, 6, 6, 6),
-		legend.key = element_rect(fill = "white", colour = "black"), 
-		legend.title = element_text(face = "bold"),
-		plot.title = element_text(face="bold", size = 18)) + 
+	theme(axis.text=element_text(size=12,face="bold"), legend.position="none") +
 	ggplot2::annotate("text", x = 0.85, y = 18, label = paste("Mean =", means$Occasions[1])) +
 	ggplot2::annotate("text", x = 1.15, y = 18, label = paste("Median =", med$Occasions[1])) +
 	ggplot2::annotate("text", x = 1.85, y = 18, label = paste("Mean =", means$Occasions[2])) +
@@ -138,6 +127,256 @@ ggplot(data=data, aes(x=svc_type, y=Occasions , fill=svc_type)) + geom_boxplot()
 dev.off()
 ```
 
+```{r LOS, echo=FALSE, include=FALSE}
+means = aggregate(Total.LOS..Days.~ svc_type, data=data, mean)
+means$Total.LOS..Days. = round(means$Total.LOS..Days., 1)
+
+med = aggregate(Total.LOS..Days. ~ svc_type, data=data, median)
+med$Total.LOS..Days. = round(med$Total.LOS..Days., 1)
+
+png(file = "Average Length of Stay per Service Type.png", bg = "transparent", width = 1200, height = 1000, res=150)
+
+ggplot(data=data, aes(x=svc_type, y=Total.LOS..Days., fill=svc_type)) + geom_boxplot() + 
+	coord_flip(ylim = quantile(data$Total.LOS..Days., c(0.05, 0.95), na.rm=T)) +
+  	stat_summary(fun.y=mean, colour="darkred", geom="point", shape=20, size=5, show.legend= FALSE) + 
+	labs(
+		y = "Length of Stay",
+		x = "Service Type") + 
+	guides(fill=guide_legend(title="Service Type")) + 
+	theme(axis.text=element_text(size=12,face="bold"), legend.position="none") + 
+	ggplot2::annotate("text", x = 0.85, y = 32, label = paste("Mean =", means$Total.LOS..Days.[1])) +
+	ggplot2::annotate("text", x = 1.15, y = 32, label = paste("Median =", med$Total.LOS..Days.[1])) +
+	ggplot2::annotate("text", x = 1.85, y = 47, label = paste("Mean =", means$Total.LOS..Days.[2])) +
+	ggplot2::annotate("text", x = 2.15, y = 47, label = paste("Median =", med$Total.LOS..Days.[2])) +
+	ggplot2::annotate("text", x = 2.85, y = 32, label = paste("Mean =", means$Total.LOS..Days.[3])) +
+	ggplot2::annotate("text", x = 3.15, y = 32, label = paste("Median =", med$Total.LOS..Days.[3])) +
+	ggplot2::annotate("text", x = 3.85, y = 32, label = paste("Mean =", means$Total.LOS..Days.[4])) +
+	ggplot2::annotate("text", x = 4.15, y = 32, label = paste("Median =", med$Total.LOS..Days.[4])) +
+  theme(panel.background = element_rect(fill = "white"),
+  plot.margin = margin(2, 2, 2, 2, "cm"))
+dev.off()
+```
+
+```{r HATH_ICD, echo=FALSE, include=FALSE}
+data.hath = temp.2[which(temp.2$svc_type == "HATH"),]
+los.means = aggregate(Total.LOS..Days.~ Parent_Diagnosis_Category, data=data.hath, mean)
+los.means$average.Total.LOS..Days. = round(los.means$Total.LOS..Days., 1)
+
+los.med = aggregate(Total.LOS..Days. ~ Parent_Diagnosis_Category, data=data.hath, median)
+los.med$median.Total.LOS..Days. = round(los.med$Total.LOS..Days., 1)
+
+vol.means = aggregate(Occasions ~ Parent_Diagnosis_Category, data=data.hath, mean)
+vol.means$average.Occasions = round(vol.means$Occasions , 1)
+
+vol.med = aggregate(Occasions ~ Parent_Diagnosis_Category, data=data.hath, median)
+vol.med$median.Occasions = round(vol.med$Occasions , 1)
+
+toplot = cbind(los.means, los.med)
+toplot = toplot[,c(1,3,6)]
+
+toplot <- toplot[order(toplot$average.Total.LOS..Days.),] 
+toplot$Parent_Diagnosis_Category = factor(toplot$Parent_Diagnosis_Category, levels=toplot$Parent_Diagnosis_Category)
+
+vol = merge(vol.med, vol.means, by.x="Parent_Diagnosis_Category", by.y="Parent_Diagnosis_Category")
+vol = vol[,c(1,3,5)]
+
+toplot = merge(toplot, vol, by.x="Parent_Diagnosis_Category", by.y="Parent_Diagnosis_Category")
+toplot
+
+theme_set(theme_classic())
+
+png(file = "HATH ICD Breakdown.png", bg = "transparent", width = 1200, height = 1000, res=150)
+
+ggplot(toplot, aes(x=Parent_Diagnosis_Category, y=average.Total.LOS..Days.)) + 
+  	geom_point(aes(col="darkgreen", size=I(5))) +   # Draw points
+  	geom_point(aes(x=Parent_Diagnosis_Category, y=median.Total.LOS..Days., col="tomato2", size=I(3))) +
+	  geom_bar(data=toplot,aes(y=median.Occasions, fill="darkgrey", alpha=0.3), stat="identity") +
+  	geom_bar(data=toplot,aes(y=average.Occasions, fill="orange", alpha= 0.3, ), stat="identity")+
+	scale_color_manual(name="Length of Stay", values = c("darkgreen","tomato2"),labels=c("Average LOS (Days)","Median LOS (Days)")) +
+	scale_fill_manual(name="Occasions",values=c("darkgrey","orange"),labels=c("Median Occasions (N)", "Average Occasions (N)"))+
+	geom_segment(aes(x=Parent_Diagnosis_Category, 
+                   xend=Parent_Diagnosis_Category, 
+                   y=min(average.Total.LOS..Days.), 
+                   yend=max(average.Total.LOS..Days.)), 
+               	linetype="1F", size=0.05, show.legend=FALSE) +   # Draw dashed lines
+ 	coord_flip() +
+	theme_bw() +
+	#scale_fill_manual(name="testing",values=c("orange","darkgrey"),labels=c("Median Occasions (N)", "Average Occasions (N)")) +
+
+	labs(
+		y = "Units",
+		x = "Diagnosis Category") + 
+	theme(axis.text=element_text(size=9), legend.position="none") +
+  theme(panel.background = element_rect(fill = "white"),
+  plot.margin = margin(2, 2, 2, 2, "cm"))
+dev.off()
+```
+
+
+```{r CNU_ICD, echo=FALSE, include=FALSE}
+data.cn = temp.2[which(temp.2$svc_type == "CNU"),]
+los.means = aggregate(Total.LOS..Days.~ Parent_Diagnosis_Category, data=data.cn , mean)
+los.means$average.Total.LOS..Days. = round(los.means$Total.LOS..Days., 1)
+
+los.med = aggregate(Total.LOS..Days. ~ Parent_Diagnosis_Category, data=data.cn , median)
+los.med$median.Total.LOS..Days. = round(los.med$Total.LOS..Days., 1)
+
+vol.means = aggregate(Occasions ~ Parent_Diagnosis_Category, data=data.cn , mean)
+vol.means$average.Occasions = round(vol.means$Occasions , 1)
+
+vol.med = aggregate(Occasions ~ Parent_Diagnosis_Category, data=data.cn , median)
+vol.med$median.Occasions = round(vol.med$Occasions , 1)
+
+toplot = cbind(los.means, los.med)
+toplot = toplot[,c(1,3,6)]
+
+toplot <- toplot[order(toplot$average.Total.LOS..Days.),] 
+toplot$Parent_Diagnosis_Category = factor(toplot$Parent_Diagnosis_Category, levels=toplot$Parent_Diagnosis_Category)
+
+vol = merge(vol.med, vol.means, by.x="Parent_Diagnosis_Category", by.y="Parent_Diagnosis_Category")
+vol = vol[,c(1,3,5)]
+
+toplot = merge(toplot, vol, by.x="Parent_Diagnosis_Category", by.y="Parent_Diagnosis_Category")
+toplot
+
+theme_set(theme_classic())
+
+png(file = "CNU ICD Breakdown.png", bg = "transparent", width = 1200, height = 1000, res=150)
+
+ggplot(toplot, aes(x=Parent_Diagnosis_Category, y=average.Total.LOS..Days.)) + 
+  	geom_point(aes(col="darkgreen", size=I(5))) +   # Draw points
+  	geom_point(aes(x=Parent_Diagnosis_Category, y=median.Total.LOS..Days., col="tomato2", size=I(3))) +
+	geom_bar(data=toplot,aes(y=median.Occasions, fill="darkgrey", alpha=0.3), stat="identity") +
+  	geom_bar(data=toplot,aes(y=average.Occasions, fill="orange", alpha= 0.3, ), stat="identity")+
+	scale_color_manual(name="Length of Stay", values = c("darkgreen","tomato2"),labels=c("Average LOS (Days)","Median LOS (Days)")) +
+	scale_fill_manual(name="Occasions",values=c("darkgrey","orange"),labels=c("Median Occasions (N)", "Average Occasions (N)"))+
+	geom_segment(aes(x=Parent_Diagnosis_Category, 
+                   xend=Parent_Diagnosis_Category, 
+                   y=min(average.Total.LOS..Days.), 
+                   yend=max(average.Total.LOS..Days.)), 
+               	linetype="1F", size=0.05, show.legend=FALSE) +   # Draw dashed lines
+ 	coord_flip() +
+	theme_bw() +
+	#scale_fill_manual(name="testing",values=c("orange","darkgrey"),labels=c("Median Occasions (N)", "Average Occasions (N)")) +
+	labs(
+		y = "Units",
+		x = "Diagnosis Category") + 
+	theme(axis.text=element_text(size=9), legend.position="none") +
+  theme(panel.background = element_rect(fill = "white"),
+  plot.margin = margin(2, 2, 2, 2, "cm"))
+dev.off()
+```
+
+```{r hath_wordcloud, echo=FALSE, include=FALSE}
+data.hath = data[which(data$svc_type == "HATH"),]
+data.sub <- data.frame(doc_id=row.names(data.hath), text=data.hath$Diagnosis.Classification)
+
+xkcd.corpus <- Corpus(DataframeSource((data.sub)))
+xkcd.corpus <- tm_map(xkcd.corpus, content_transformer(removePunctuation))
+xkcd.corpus <- tm_map(xkcd.corpus, content_transformer(tolower))
+xkcd.corpus <- tm_map(xkcd.corpus, function(x) removeWords(x, stopwords("english")))
+tdm <- TermDocumentMatrix(xkcd.corpus)
+m <- as.matrix(tdm)
+v <- sort(rowSums(m),decreasing=TRUE)
+d <- data.frame(word = names(v),freq=v)
+
+pal2 <- brewer.pal(8,"Dark2")
+
+png(file = "HATH_wordcloud.png", bg = "transparent", width = 1200, height = 1200, res=150)
+wordcloud(d$word,d$freq, scale=c(8,.2),min.freq=3,
+max.words=Inf, random.order=FALSE, rot.per=.15, colors=pal2)
+dev.off()
+
+pal <- brewer.pal(9, "BuGn")
+pal <- pal[-(1:2)]
+
+png(file = "HATH_wordcloud_v2.png", bg = "transparent", width = 1200, height = 1200, res=150)
+wordcloud(d$word,d$freq, scale=c(8,.3),min.freq=2,max.words=500, random.order=T, rot.per=.15, colors=pal, vfont=c("sans serif","plain"))
+dev.off()
+
+```
+
+```{r circular_barplot, echo=FALSE, include=FALSE}
+source('circular_barplot_with_groups.R')
+
+# Make the plot
+png(file = "C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/circular_barplots.png", bg = "transparent", width = 1200, height = 1000, res=150)
+
+ggplot(data, aes(x=as.factor(id), y=value, fill=group)) +       # Note that id is a factor. If x is numeric, there is some space between the first bar
+  
+  geom_bar(aes(x=as.factor(id), y=value, fill=group), stat="identity", alpha=0.5) +
+  
+  # Add a val=100/75/50/25 lines. I do it at the beginning to make sur barplots are OVER it.
+  #geom_segment(data=grid_data, aes(x = end, y = 80, xend = start, yend = 80), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
+  #geom_segment(data=grid_data, aes(x = end, y = 60, xend = start, yend = 60), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
+  #geom_segment(data=grid_data, aes(x = end, y = 40, xend = start, yend = 40), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
+  #geom_segment(data=grid_data, aes(x = end, y = 20, xend = start, yend = 20), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
+  
+  # Add text showing the value of each 100/75/50/25 lines
+  #annotate("text", x = rep(max(data$id),4), y = c(20, 40, 60, 80), label = c("20", "40", "60", "80") , color="grey", size=3 , angle=0, fontface="bold", hjust=1) +
+  
+  geom_bar(aes(x=as.factor(id), y=value, fill=group), stat="identity", alpha=0.5) +
+  ylim(-100,120) +
+  theme_minimal() +
+  theme(
+    legend.position = "none",
+    axis.text = element_blank(),
+    axis.title = element_blank(),
+    panel.grid = element_blank(),
+    plot.margin = unit(rep(-1,4), "cm") 
+  ) +
+  coord_polar() + 
+  geom_text(data=label_data, aes(x=id, y=value+10, label=individual, hjust=hjust), color="black", fontface="bold",alpha=0.6, size=2.5, angle= label_data$angle, inherit.aes = FALSE ) +
+  
+  # Add base line information
+  geom_segment(data=base_data, aes(x = start, y = -5, xend = end, yend = -5), colour = "black", alpha=0.8, size=0.6 , inherit.aes = FALSE )  +
+  geom_text(data=base_data, aes(x = title,y=-20, label=group), colour = "black", alpha=0.8, size=4, fontface="bold", inherit.aes = FALSE)
+
+dev.off()
+```
+
+```{r timeseries_heatmap, echo=FALSE, include=FALSE}
+source('timeseries_heatmap.R')
+
+png(file = "C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/time_series_heatmap.png", bg = "transparent", width = 1200, height = 1000, res=150)
+## Plot the heatmap ##
+ggplot(df.out, aes(monthweek, weekdayf, fill = Length_Of_Stay_Days)) + 
+  geom_tile(colour = "white") + 
+  facet_grid(year~yearmonthf) + 
+  scale_fill_gradient(low="red", high="green") +
+  labs(x="Week of Month",
+       y="",
+       fill="LOS")
+dev.off()
+```
+
+
+
+```{r SA_explore, echo=FALSE, include=FALSE}
+library(htmlwidgets)
+
+source('SA_Explore.R')
+
+## static map with zoom in and out functionality ##
+m_numSep = leaflet(final)%>% 
+	addMapPane(name = "polygons", zIndex = 410) %>% 
+  	addMapPane(name = "maplabels", zIndex = 420) %>% # higher zIndex rendered on top
+  	addProviderTiles("CartoDB.PositronNoLabels") %>%
+  	addProviderTiles("CartoDB.PositronOnlyLabels", 
+      	options = leafletOptions(pane = "maplabels"),
+            group = "map labels") %>%
+	addPolygons(
+  		fillColor = ~pal(number_of_Separation),
+  		weight = 2,
+  		opacity = 1,
+  		color = "white",
+  		dashArray = "3",
+  		fillOpacity = 0.7) %>%
+  setView(lng = 138.6, lat = -34.93, zoom = 10)
+saveWidget(m_numSep, file="SA_explore.html")
+```
+
+
 
 <div class="g-grid">
 
@@ -155,18 +394,48 @@ dev.off()
 </div>
 
 <div class="g-grid">
-  <div class="g-grid-cell"><img src="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/Average Occassions per Service Type.png"/>
+  <div class="g-grid-cell"><img src="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/Average Length of Stay per Service Type.png"/>
     <div class="desc">Add a description of the image here</div>
   </div>
   
-  <div class="g-grid-cell"><img src="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/Number of Occassions per Service Type.png"/>
+  <div class="g-grid-cell"><img src="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/HATH ICD Breakdown.png"/>
     <div class="desc">Add a description of the image here</div>
   </div>
   
-  <div class="g-grid-cell"><img src="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/Frequency of Service Type Episodes.png"/>
+  <div class="g-grid-cell"><img src="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/CNU ICD Breakdown.png"/>
     <div class="desc">Add a description of the image here</div>
   </div>
 </div>
+
+<div class="g-grid">
+  <div class="g-grid-cell"><img src="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/gauge.png"/>
+    <div class="desc">Add a description of the image here</div>
+  </div>
+  
+  <div class="g-grid-cell"><img src="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/HATH_wordcloud.png"/>
+    <div class="desc">Add a description of the image here</div>
+  </div>
+  
+  <div class="g-grid-cell"><img src="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/HATH_wordcloud_v2.png"/>
+    <div class="desc">Add a description of the image here</div>
+  </div>
+</div>
+
+<div class="g-grid">
+  <div class="g-grid-cell"><img src="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/circular_barplots.png"/>
+    <div class="desc">Add a description of the image here</div>
+  </div>
+  
+  <div class="g-grid-cell"><img src="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/time_series_heatmap.png"/>
+    <div class="desc">Add a description of the image here</div>
+  </div>
+  
+  <div class="g-grid-cell"><iframe style="position:relative;width:100%;height:82.5%;" src="SA_explore.html"></iframe>
+  <div class="desc">Add a description of the image here</div>
+  </div>
+</div>
+
+
 
 
 This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
