@@ -14,6 +14,7 @@ output: html_document
 .topnav {
     background-color: lightgrey;
     overflow: hidden;
+    margin-bottom: 1rem;
 }
 
 /* Style the links inside the navigation bar */
@@ -49,20 +50,42 @@ output: html_document
   flex: 1 0;
   background-color: white;
   margin-left: 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.60rem;
   border-style: solid;
   border-color: lightgrey;
   border-width: thin;
+  -moz-box-shadow: 0 0 5px 5px #888;
+  -webkit-box-shadow: 0 0 5px 5px #888;
+  box-shadow: 0 0 1px 1px lightgrey;
 }
 
 .g-grid-cell:hover {
   border: 2px solid grey;
 }
 
+.desc-cell {
+  flex: 1 0;
+  background-color: #f2f2f2;
+  margin-left: 1rem;
+  margin-bottom: 3rem;
+  -moz-box-shadow: 0 0 5px 5px #888;
+  -webkit-box-shadow: 0 0 5px 5px #888;
+  box-shadow: 0 0 1px 1px lightgrey;
+}
+
 .desc {
-    padding: 15px;
+    padding-top: 0.6vh;
+    padding-bottom: 0.2vh;
     text-align: center;
-    border-top: 1px solid lightgrey;
+    position: relative;
+    font-size: 0.75vw;
+}
+
+.pictorial {
+    position:relative;
+    width:100%;
+    height:100%;
+}
 }
 
 </style>
@@ -73,7 +96,6 @@ output: html_document
   <a href="#contact">Contact</a>
   <a href="#about">About</a>
 </div>
-
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -89,8 +111,6 @@ map = map[,c(3,6)]
 temp = data 
 temp.2 = merge(temp, map, by.x = "Diagnosis.Classification", by.y = "Diagnosis_Category", all.x=TRUE)
 ```
-
-## Data Visualisation
 
 This webpage is generated to primarily demonstrate the data visualisations produced utilising Silver Chain's data, with the primary audience being internal and external stakeholders of the Health Care group. A secondary objective is to keep track of these products to facilitate the ease of usage for future projects and reporting purposes. 
 
@@ -255,7 +275,6 @@ ggplot(toplot, aes(x=Parent_Diagnosis_Category, y=average.Total.LOS..Days.)) +
 dev.off()
 ```
 
-
 ```{r CNU_ICD, echo=FALSE, include=FALSE}
 data.cn = temp.2[which(temp.2$svc_type == "CNU"),]
 los.means = aggregate(Total.LOS..Days.~ Parent_Diagnosis_Category, data=data.cn , mean)
@@ -378,6 +397,57 @@ ggplot(data, aes(x=as.factor(id), y=value, fill=group)) +       # Note that id i
 dev.off()
 ```
 
+```{r relate_flow, echo=FALSE, include=FALSE}
+library(htmlwidgets)
+
+source('relationships.R')
+
+sankey = sankeyNetwork(Links = links, Nodes = nodes,
+              Source = "IDsource", Target = "IDtarget",
+              Value = "value", NodeID = "name", 
+              sinksRight=FALSE,height=1500,width=1800,fontSize=20, nodePadding = 40)
+
+#saveWidget(sankey, file="sankey_flow.html")
+
+relate = aggregate(count ~ Mapped_Ref +  Parent_Diagnosis_Category, data=data.hath.sort.sub.mani, sum)
+dim(relate)
+names(relate)
+
+links = relate
+names(links)[1] = "source"
+names(links)[2] = "target"
+names(links)[3] = "value"
+
+links$IDsource=match(links$source, nodes$name)-1 
+links$IDtarget=match(links$target, nodes$name)-1
+
+nodes=data.frame(name=c(as.character(links$source), as.character(links$target)) %>% unique())
+nodes$group = nodes$name
+nodes$size = 3
+
+force = forceNetwork(Links = links, Nodes = nodes, Source = "IDsource",
+             Target = "IDtarget", Value = "value", NodeID = "name",
+             Group = "name", opacity = 0.95, Nodesize = 3, 
+             linkDistance = 300, fontSize = 20, arrows=T)
+
+#saveWidget(force, file="force_relate.html")
+
+relate = aggregate(Total.LOS..Days. ~ Mapped_Ref + svc_type +  Parent_Diagnosis_Category + Outcome, data=data.hath.sort.sub.mani, mean)
+dim(relate)
+names(relate)
+
+collaspe = collapsibleTree(
+  relate,
+  hierarchy = c("Mapped_Ref", "svc_type", "Parent_Diagnosis_Category", "Outcome", "Total.LOS..Days."),
+  width = 1200,
+  height = 1200,
+  zoomable = FALSE
+)
+
+#saveWidget(collaspe, file="collaspe_relate.html")
+
+```
+
 ```{r timeseries_heatmap, echo=FALSE, include=FALSE}
 source('timeseries_heatmap.R')
 
@@ -392,8 +462,6 @@ ggplot(df.out, aes(monthweek, weekdayf, fill = Length_Of_Stay_Days)) +
        fill="LOS")
 dev.off()
 ```
-
-
 
 ```{r SA_explore, echo=FALSE, include=FALSE}
 library(htmlwidgets)
@@ -419,7 +487,6 @@ m_numSep = leaflet(final)%>%
 #saveWidget(m_numSep, file="SA_explore.html")
 ```
 
-
 ```{r WA_explore, echo=FALSE, include=FALSE}
 source('clustering_heatmap_map.R')
 
@@ -432,74 +499,102 @@ interact = leaflet(wa)%>%addPolygons(color="black",weight=1) %>%
 #saveWidget(interact, file="WA_cluster_explore.html")
 ```
 
-
+<!-- Row 1 -->
 <div class="g-grid">
 
-  <div class="g-grid-cell"><img src="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/Frequency of Service Type Episodes.png"/>
-    <div class="desc">Add a description of the image here</div>
+  <div class="g-grid-cell"><img class="pictorial" src="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/Frequency of Service Type Episodes.png"/>
   </div>
   
-  <div class="g-grid-cell"><img src="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/Number of Occassions per Service Type.png"/>
-    <div class="desc">Add a description of the image here</div>
+  <div class="g-grid-cell"><img class="pictorial" src="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/Number of Occassions per Service Type.png"/>
   </div>
   
-  <div class="g-grid-cell"><img src="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/Average Occassions per Service Type.png"/>
-    <div class="desc">Add a description of the image here</div>
+  <div class="g-grid-cell"><img class="pictorial" src="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/Average Occassions per Service Type.png"/>
   </div>
-</div>
 
-<div class="g-grid">
-  <div class="g-grid-cell"><img src="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/Average Length of Stay per Service Type.png"/>
-    <div class="desc">Add a description of the image here</div>
-  </div>
-  
-  <div class="g-grid-cell"><img src="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/HATH ICD Breakdown.png"/>
-    <div class="desc">Add a description of the image here</div>
-  </div>
-  
-  <div class="g-grid-cell"><img src="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/CNU ICD Breakdown.png"/>
-    <div class="desc">Add a description of the image here</div>
+  <div class="g-grid-cell"><img class="pictorial" src="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/Average Length of Stay per Service Type.png"/>
   </div>
 </div>
 
 <div class="g-grid">
-  <div class="g-grid-cell"><img src="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/gauge.png"/>
-    <div class="desc">Add a description of the image here</div>
+  <div class="desc-cell"><div class="desc">Add a description of the image here</div></div>
+  <div class="desc-cell"><div class="desc">Add a description of the image here</div></div>
+  <div class="desc-cell"><div class="desc">Add a description of the image here</div></div>
+  <div class="desc-cell"><div class="desc">Add a description of the image here</div></div>
+</div>
+
+<!-- Row 2 -->
+<div class="g-grid">
+
+  <div class="g-grid-cell"><img class="pictorial" src="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/HATH ICD Breakdown.png"/>
   </div>
   
-  <div class="g-grid-cell"><img src="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/HATH_wordcloud.png"/>
-    <div class="desc">Add a description of the image here</div>
+  <div class="g-grid-cell"><img class="pictorial" src="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/CNU ICD Breakdown.png"/>
   </div>
   
-  <div class="g-grid-cell"><img src="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/HATH_wordcloud_v2.png"/>
-    <div class="desc">Add a description of the image here</div>
+  <div class="g-grid-cell"><img class="pictorial" src="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/gauge.png"/>
+  </div>
+  
+  <div class="g-grid-cell"><img class="pictorial" src="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/HATH_wordcloud.png"/>
   </div>
 </div>
 
 <div class="g-grid">
-  <div class="g-grid-cell"><img src="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/circular_barplots.png"/>
-    <div class="desc">Add a description of the image here</div>
+  <div class="desc-cell"><div class="desc">Add a description of the image here</div></div>
+  <div class="desc-cell"><div class="desc">Add a description of the image here</div></div>
+  <div class="desc-cell"><div class="desc">Add a description of the image here</div></div>
+  <div class="desc-cell"><div class="desc">Add a description of the image here</div></div>
+</div>
+
+<!-- Row 3 -->
+<div class="g-grid">
+  <div class="g-grid-cell"><img class="pictorial" src="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/HATH_wordcloud_v2.png"/>
+  </div>
+
+  <div class="g-grid-cell"><img class="pictorial" src="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/circular_barplots.png"/>
   </div>
   
-  <div class="g-grid-cell"><img src="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/time_series_heatmap.png"/>
-    <div class="desc">Add a description of the image here</div>
+  <div class="g-grid-cell"><img class="pictorial" src="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/time_series_heatmap.png"/>
   </div>
   
-  <div class="g-grid-cell"><img style="position:relative;width:100%;height:82.5%;" src="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/animate_map.gif"/>
-    <div class="desc">Add a description of the image here</div>
+  <div class="g-grid-cell"><img class="pictorial" src="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/animate_map.gif"/>
   </div>
 </div>
 
-<div class="g-grid" style="height: 400px";>
-  <div class="g-grid-cell"><iframe style="position:relative;width:100%;height:87%;" src="SA_explore.html"></iframe><div class="desc">Add a description of the image here</div></div>
+<div class="g-grid">
+  <div class="desc-cell"><div class="desc">Add a description of the image here</div></div>
+  <div class="desc-cell"><div class="desc">Add a description of the image here</div></div>
+  <div class="desc-cell"><div class="desc">Add a description of the image here</div></div>
+  <div class="desc-cell"><div class="desc">Add a description of the image here</div></div>
+</div>
+
+<!-- Row 4 -->
+<div class="g-grid" style="height: 50vh";>
+  <div class="g-grid-cell"><iframe class="pictorial" src="SA_explore.html"></iframe></div>
   
-  <div class="g-grid-cell"><iframe style="position:relative;width:100%;height:87%;" src="WA_cluster_explore.html"></iframe><div class="desc">Add a description of the image here</div></div>
+  <div class="g-grid-cell"><iframe class="pictorial" src="WA_cluster_explore.html"></iframe></div>
+
+  <div class="g-grid-cell"><iframe class="pictorial" src="collaspe_relate.html"></iframe></div>
 </div>
 
-<div class="g-grid" style="height: 300px";>
-  <div class="g-grid-cell"><iframe style="position:relative;width:100%;height:85%;" src="patient_flow.html"></iframe><div class="desc">Add a description of the image here</div></div>
+<div class="g-grid">
+  <div class="desc-cell"><div class="desc">Add a description of the image here</div></div>
+  <div class="desc-cell"><div class="desc">Add a description of the image here</div></div>
+  <div class="desc-cell"><div class="desc">Add a description of the image here</div></div>
 </div>
 
+<!-- Row 5 -->
+<div class="g-grid" style="height: 50vh";>
+  <div class="g-grid-cell"><iframe class="pictorial" src="force_relate.html"></iframe></div>
 
+  <div class="g-grid-cell"><iframe class="pictorial" src="patient_flow.html"></iframe></div>
+  
+  <div class="g-grid-cell"><iframe class="pictorial" src="sankey_flow.html"></iframe></div>
+</div>
+
+<div class="g-grid">
+  <div class="desc-cell"><div class="desc">Add a description of the image here</div></div>
+  <div class="desc-cell"><div class="desc">Add a description of the image here</div></div>
+  <div class="desc-cell"><div class="desc">Add a description of the image here</div></div>
+</div>
 
 This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
