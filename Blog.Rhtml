@@ -7,16 +7,19 @@
   margin-right: auto;
 }
 
-.col-side{
-    width: 240px;
-    height: 100%;
+.col-side {
+    flex: 1 1;
 }
 
-#col1{
+.col {
+    flex: 3 1;
+}
+
+#col1 {
   border-right: 2px solid rgba(0, 0, 0, 0.12);
 }
 
-#col3{
+#col3 {
    border-left: 2px solid rgba(0, 0, 0, 0.12); 
 }
  
@@ -162,7 +165,6 @@
 
 </style>
 
-
 <div class="banner">
   <span id="error">Silver Chain<br /></span>
   <span id="code">Data Visualisation</span>
@@ -176,7 +178,14 @@
 </div>
 
 <div class="g-grid">
-  <div class="col-side" id="col1">Left</div>
-  <div class="col" id="col2">Center</div>
-  <div class="col-side" id="col3">Right</div>
+  <div class="g-grid-cell">Left
+  </div>
+  
+  <div class="col" id="col2">
+  <img src="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/Number of Occassions per Service Type.png"/>
+  </div>
+  
+  <div class="col-side" id="col3">Right
+  </div>
+  
 </div>
