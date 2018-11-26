@@ -1,18 +1,76 @@
 ---
-title: "Silver Chain Portfolio"
 output: html_document
 ---
 
 <style>
 
 .main-container {
-  max-width: 1800px;
+  max-width: 2000px;
   margin-left: auto;
   margin-right: auto;
 }
 
+.banner {
+  background-color: #1CBDED;
+  display: flex;
+  color: white;
+  font-size: 32px;
+  font-size: 3.5vw;
+  flex: 1 1;
+  text-align: center;
+  text-transform: uppercase;
+  justify-content: center;
+  padding-top : 50px;
+  padding-bottom: 50px;
+  <!-- -webkit-animation-name: banner; /* Safari 4.0 - 8.0 */ -->
+  <!-- -webkit-animation-duration: 6s; /* Safari 4.0 - 8.0 */ -->
+  <!-- animation-name: banner; -->
+  <!-- animation-duration: 6s; -->
+  animation-iteration-count: infinite;
+}
+
+<!-- /* Safari 4.0 - 8.0 */ -->
+<!-- @-webkit-keyframes banner { -->
+<!--     from {background-color: #1CBDED;} -->
+<!--     to {background-color: #e8f8fd;} -->
+<!-- } -->
+<!-- /* Standard syntax */ -->
+<!-- @keyframes banner { -->
+<!--     from {background-color: #1CBDED;} -->
+<!--     to {background-color: #e8f8fd;} -->
+<!-- } -->
+
+#error {
+  animation: upper 8s linear infinite;
+  color: white;
+}
+
+#code {
+  opacity:.4;
+  color: white;
+  animation: lower 7s linear infinite;
+}
+
+@keyframes upper {
+  0%,19.999%,22%,62.999%,64%, 64.999%,70%,100% {
+    opacity:.99; text-shadow: 0 0 80px #ffffff,0 0 30px #008000,0 0 6px #0000ff;
+  }
+  20%,21.999%,63%,63.999%,65%,69.999% {
+    opacity:0.4; text-shadow: none; 
+  }
+}
+
+@keyframes lower {
+  0%,12%,18.999%,23%,31.999%,37%,44.999%,46%,49.999%,51%,58.999%,61%,68.999%,71%,85.999%,96%,100% {
+    opacity:0.99; text-shadow: 0 0 80px red,0 0 30px firebrick,0 0 6px darkred;
+  }
+  19%,22.99%,32%,36.999%,45%,45.999%,50%,50.99%,59%,60.999%,69%,70.999%,86%,95.999% { 
+    opacity:0.4; text-shadow: none; 
+  }
+}
+
 .topnav {
-    background-color: lightgrey;
+    background-color: #A0A0A0;
     overflow: hidden;
     margin-bottom: 1rem;
 }
@@ -24,12 +82,13 @@ output: html_document
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
-    font-size: 17px;
+    font-size: 20px;
+    font-size: 1vw;
 }
 
 /* Change the color of links on hover */
 .topnav a:hover {
-    background-color: grey;
+    background-color: #C8C8C8;
     color: black;
 }
 
@@ -47,16 +106,16 @@ output: html_document
 }
 
 .g-grid-cell {
-  flex: 1 0;
+  flex: 1 1;
   background-color: white;
   margin-left: 1rem;
   margin-bottom: 0.60rem;
   border-style: solid;
-  border-color: lightgrey;
+  border-color: #F5F5F5;
   border-width: thin;
   -moz-box-shadow: 0 0 5px 5px #888;
   -webkit-box-shadow: 0 0 5px 5px #888;
-  box-shadow: 0 0 1px 1px lightgrey;
+  box-shadow: 0 0 1px 1px #F5F5F5;
 }
 
 .g-grid-cell:hover {
@@ -64,13 +123,13 @@ output: html_document
 }
 
 .desc-cell {
-  flex: 1 0;
-  background-color: #f2f2f2;
+  flex: 1 1;
+  background-color: #F8F8F8;
   margin-left: 1rem;
   margin-bottom: 3rem;
   -moz-box-shadow: 0 0 5px 5px #888;
   -webkit-box-shadow: 0 0 5px 5px #888;
-  box-shadow: 0 0 1px 1px lightgrey;
+  box-shadow: 0 0 1px 1px #F5F5F5;
 }
 
 .desc {
@@ -86,21 +145,31 @@ output: html_document
     position:relative;
     width:100%;
     height:100%;
+    -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+    filter: grayscale(100%);
+}
+
+.pictorial:hover {  
+  filter: none;
+  -webkit-filter: grayscale(0%);
 }
 }
 
 </style>
 
-<div class="topnav">
-  <a class="active" href="#home">Home</a>
-  <a href="#news">Blog</a>
-  <a href="#contact">Contact</a>
-  <a href="#about">About</a>
+
+<div class="banner">
+  <span id="error">Silver Chain<br /></span>
+  <span id="code">Data Visualisation</span>
 </div>
 
-This webpage is generated to primarily demonstrate the data visualisations produced utilising Silver Chain's data, with the primary audience being internal and external stakeholders of the Health Care group. A secondary objective is to keep track of these products to facilitate the ease of usage for future projects and reporting purposes. 
+<div class="topnav">
+  <a href="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/scg_web_portfolio.html">Home</a>
+  <a href="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/Blog.html">Blog</a>
+  <a href="#contact">Contact</a>
+  <a href="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/About.html">About</a>
+</div>
 
-Credit: T.B.A
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -241,9 +310,23 @@ knitr::opts_chunk$set(echo = TRUE)
 </div>
 
 <div class="g-grid">
-  <div class="desc-cell"><div class="desc">Add a description of the image here</div></div>
-  <div class="desc-cell"><div class="desc">Add a description of the image here</div></div>
-  <div class="desc-cell"><div class="desc">Add a description of the image here</div></div>
+  <div class="desc-cell">
+  <div class="desc">
+  <strong> South Australia Metropolitan Heatmap </strong> <br /> Heatmap based on hospital admission frequency
+  </div>
+  </div>
+  
+  <div class="desc-cell">
+  <div class="desc">
+  <strong> Western Australia Clustering Heatmap </strong> <br /> Heatmap with clustering <br /> based on western australia service episodes
+  </div>
+  </div>
+  
+  <div class="desc-cell">
+  <div class="desc">
+  <strong> Collapsible Interactive Flow Chart </strong> <br /> Flow chart to visualise patient flow <br /> with interactive features
+  </div>
+  </div>
 </div>
 
 <!-- Row 5 -->
@@ -256,9 +339,21 @@ knitr::opts_chunk$set(echo = TRUE)
 </div>
 
 <div class="g-grid">
-  <div class="desc-cell"><div class="desc">Add a description of the image here</div></div>
-  <div class="desc-cell"><div class="desc">Add a description of the image here</div></div>
-  <div class="desc-cell"><div class="desc">Add a description of the image here</div></div>
+  <div class="desc-cell">
+  <div class="desc">
+  <strong> Force Diagram </strong> <br /> An interactive feature to visualise patient flow
+  </div>
+  </div>
+  
+  <div class="desc-cell">
+  <div class="desc">
+  <strong> Full Patient Journey </strong> <br /> Visualise patient's journey across different time points <br /> with all activities and indicators presented
+  </div>
+  </div>
+  
+  <div class="desc-cell">
+  <div class="desc">
+  <strong> Sankey Plot </strong> <br /> Patient flow from an interaction point <br /> to another interaction point
+  </div>
+  </div>
 </div>
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.

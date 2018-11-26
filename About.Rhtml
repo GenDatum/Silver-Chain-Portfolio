@@ -1,0 +1,180 @@
+
+<style>
+
+.main-container {
+  max-width: 2000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.banner {
+  background-color: #1CBDED;
+  display: flex;
+  color: white;
+  font-size: 32px;
+  font-size: 3.5vw;
+  flex: 1 1;
+  text-align: center;
+  text-transform: uppercase;
+  justify-content: center;
+  padding-top : 50px;
+  padding-bottom: 50px;
+  <!-- -webkit-animation-name: banner; /* Safari 4.0 - 8.0 */ -->
+  <!-- -webkit-animation-duration: 6s; /* Safari 4.0 - 8.0 */ -->
+  <!-- animation-name: banner; -->
+  <!-- animation-duration: 6s; -->
+  animation-iteration-count: infinite;
+}
+
+<!-- /* Safari 4.0 - 8.0 */ -->
+<!-- @-webkit-keyframes banner { -->
+<!--     from {background-color: #1CBDED;} -->
+<!--     to {background-color: #e8f8fd;} -->
+<!-- } -->
+<!-- /* Standard syntax */ -->
+<!-- @keyframes banner { -->
+<!--     from {background-color: #1CBDED;} -->
+<!--     to {background-color: #e8f8fd;} -->
+<!-- } -->
+
+#error {
+  animation: upper 8s linear infinite;
+  color: white;
+}
+
+#code {
+  opacity:.4;
+  color: white;
+  animation: lower 7s linear infinite;
+}
+
+@keyframes upper {
+  0%,19.999%,22%,62.999%,64%, 64.999%,70%,100% {
+    opacity:.99; text-shadow: 0 0 80px #ffffff,0 0 30px #008000,0 0 6px #0000ff;
+  }
+  20%,21.999%,63%,63.999%,65%,69.999% {
+    opacity:0.4; text-shadow: none; 
+  }
+}
+
+@keyframes lower {
+  0%,12%,18.999%,23%,31.999%,37%,44.999%,46%,49.999%,51%,58.999%,61%,68.999%,71%,85.999%,96%,100% {
+    opacity:0.99; text-shadow: 0 0 80px red,0 0 30px firebrick,0 0 6px darkred;
+  }
+  19%,22.99%,32%,36.999%,45%,45.999%,50%,50.99%,59%,60.999%,69%,70.999%,86%,95.999% { 
+    opacity:0.4; text-shadow: none; 
+  }
+}
+
+.topnav {
+    background-color: #A0A0A0;
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+    float: left;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 20px;
+    font-size: 1vw;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+    background-color: #C8C8C8;
+    color: black;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+    background-color: #1CBDED;
+    color: white;
+}
+
+.g-grid {
+  display: flex;
+  justify-content: space-between;
+  margin-left: -1rem;
+  flex-flow: row wrap;
+}
+
+.g-grid-cell {
+  flex: 1 1;
+  background-color: white;
+  margin-left: 1rem;
+  margin-bottom: 0.60rem;
+  border-style: solid;
+  border-color: #F5F5F5;
+  border-width: thin;
+  -moz-box-shadow: 0 0 5px 5px #888;
+  -webkit-box-shadow: 0 0 5px 5px #888;
+  box-shadow: 0 0 1px 1px #F5F5F5;
+}
+
+.g-grid-cell:hover {
+  border: 2px solid grey;
+}
+
+.desc-cell {
+  flex: 1 1;
+  background-color: #F8F8F8;
+  margin-left: 1rem;
+  margin-bottom: 3rem;
+  -moz-box-shadow: 0 0 5px 5px #888;
+  -webkit-box-shadow: 0 0 5px 5px #888;
+  box-shadow: 0 0 1px 1px #F5F5F5;
+}
+
+.desc {
+    padding-top: 0.6vh;
+    padding-bottom: 0.2vh;
+    text-align: center;
+    position: relative;
+    font-size: 0.9vw;
+    font-family: "Times New Roman";
+}
+
+.pictorial {
+    position:relative;
+    width:100%;
+    height:100%;
+}
+}
+
+</style>
+
+
+<div class="banner">
+  <span id="error">Silver Chain<br /></span>
+  <span id="code">Data Visualisation</span>
+</div>
+
+<div class="topnav">
+  <a href="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/scg_web_portfolio.html">Home</a>
+  <a href="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/Blog.html">Blog</a>
+  <a href="#contact">Contact</a>
+  <a href="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/About.html">About</a>
+</div>
+
+<html>
+<head>
+<title>About</title>
+</head>
+
+<body>
+
+<p>
+This webpage is generated to primarily demonstrate the data visualisations produced utilising Silver Chain's data, with the primary audience being internal and external stakeholders of the Health Care group. A secondary objective is to keep track of these products to facilitate the ease of usage for future projects and reporting purposes. 
+
+Credit: T.B.A
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+</p>
+
+
+</body>
+</html>
