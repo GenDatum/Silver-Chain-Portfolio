@@ -7,28 +7,21 @@
   margin-right: auto;
 }
 
-.col-side {
-    flex: 1 1;
+@font-face {
+  font-family: 'Monoton';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Monoton'), local('Monoton-Regular'), url(https://fonts.gstatic.com/s/monoton/v7/5h1aiZUrOngCibe4TkHLQg.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
-.col {
-    flex: 3 1;
-}
-
-#col1 {
-  border-right: 2px solid rgba(0, 0, 0, 0.12);
-}
-
-#col3 {
-   border-left: 2px solid rgba(0, 0, 0, 0.12); 
-}
- 
 .banner {
   background-color: #1CBDED;
   display: flex;
   color: white;
   font-size: 32px;
-  font-size: 3.5vw;
+  font-size: 4vw;
+  font-family: 'Monoton', cursive;
   flex: 1 1;
   text-align: center;
   text-transform: uppercase;
@@ -114,33 +107,54 @@
 .g-grid {
   display: flex;
   justify-content: space-between;
-  margin-left: -1rem;
   flex-flow: row wrap;
   height:100vh;
-  width:100%
+  width:100%;
+  border-top: 2px solid rgba(0, 0, 0, 0.12);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.12);
 }
 
-.g-grid-cell {
-  flex: 1 1;
-  background-color: white;
-  margin-left: 1rem;
-  margin-bottom: 0.60rem;
-  border-style: solid;
-  border-color: #F5F5F5;
-  border-width: thin;
-  -moz-box-shadow: 0 0 5px 5px #888;
-  -webkit-box-shadow: 0 0 5px 5px #888;
-  box-shadow: 0 0 1px 1px #F5F5F5;
+.col-side {
+    flex: 1 1;
+    text-align:center;
+    color: grey;
+    font-family: 'Playfair Display', serif;
+    text-transform: uppercase;
 }
 
-.g-grid-cell:hover {
-  border: 2px solid grey;
+.col {
+    flex: 4 1;
+}
+
+#col1 {
+  border-right: 2px solid rgba(0, 0, 0, 0.12);
+  border-left: 2px solid rgba(0, 0, 0, 0.12); 
+  padding-top:40px;
+  font-size: 1.5vw;
+}
+
+#col3 {
+   border-left: 2px solid rgba(0, 0, 0, 0.12); 
+   border-right: 2px solid rgba(0, 0, 0, 0.12);
+   padding-top:40px;
+   padding-left:5px;
+   padding-right:5px;
+  font-size: 1.2vw;
+}
+
+.pictorial {
+    position:relative;
+    width:65%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .desc-cell {
   flex: 1 1;
   background-color: #F8F8F8;
   margin-left: 1rem;
+  margin-right: 1rem;
   margin-bottom: 3rem;
   -moz-box-shadow: 0 0 5px 5px #888;
   -webkit-box-shadow: 0 0 5px 5px #888;
@@ -150,17 +164,23 @@
 .desc {
     padding-top: 0.6vh;
     padding-bottom: 0.2vh;
-    text-align: center;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    text-align: justify;
     position: relative;
-    font-size: 0.9vw;
+    font-size: 1.2vw;
     font-family: "Times New Roman";
 }
 
-.pictorial {
-    position:relative;
-    width:100%;
-    height:100%;
+h1 {
+  text-align:center;
+  color: grey;
+  font-family: 'Playfair Display', serif;
+  text-transform: uppercase;
+  font-weight: bold;
 }
+
+
 }
 
 </style>
@@ -178,14 +198,29 @@
 </div>
 
 <div class="g-grid">
-  <div class="g-grid-cell">Left
+  <div class="col-side" id="col1">
+  <p>Step 1</p> <br/> 
+  <p>Step 2</p> <br>
+  <p>Step 3</p> <br/>
+  <p>Step 4</p> <br/>
+  <p>Related</p> <br/>
   </div>
   
   <div class="col" id="col2">
-  <img src="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/Number of Occassions per Service Type.png"/>
+  <h1> Cox Comb Plot </h1>
+  <img class="pictorial" src="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/Number of Occassions per Service Type.png"/>
+  <div class="desc-cell">
+  <div class="desc">
+  <p> This is a descritption on the Coxcomb plot which is a more advanced version of pie chart. Each "pie section" is based on the frequency if your choice.</p>
+  </div>
+  </div>
   </div>
   
-  <div class="col-side" id="col3">Right
+  <div class="col-side" id="col3">
+  <p>Box and Whisker Plot</p> <br/> 
+  <p>Horizontal Bar Plot with Points</p> <br>
+  <p>Performance Gauge</p> <br/>
+  <p>Word Cloud</p> <br/>
+  <p>Circular Bar plots</p> <br/>
   </div>
-  
 </div>
