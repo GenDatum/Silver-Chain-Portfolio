@@ -82,7 +82,7 @@
 }
 
 /* Style the links inside the navigation bar */
-.topnav a {
+.topnav .navA {
     float: left;
     color: white;
     text-align: center;
@@ -93,13 +93,13 @@
 }
 
 /* Change the color of links on hover */
-.topnav a:hover {
+.topnav .navA:hover {
     background-color: #C8C8C8;
     color: black;
 }
 
 /* Add a color to the active/current link */
-.topnav a.active {
+.topnav .navA.active {
     background-color: #1CBDED;
     color: white;
 }
@@ -108,7 +108,7 @@
   display: flex;
   justify-content: space-between;
   flex-flow: row wrap;
-  height:100vh;
+  height:100%;
   width:100%;
   border-top: 2px solid rgba(0, 0, 0, 0.12);
   border-bottom: 2px solid rgba(0, 0, 0, 0.12);
@@ -121,6 +121,7 @@
     font-family: 'Playfair Display', serif;
     text-transform: uppercase;
 }
+
 
 .col {
     flex: 4 1;
@@ -137,9 +138,9 @@
    border-left: 2px solid rgba(0, 0, 0, 0.12); 
    border-right: 2px solid rgba(0, 0, 0, 0.12);
    padding-top:40px;
-   padding-left:5px;
-   padding-right:5px;
-  font-size: 1.2vw;
+   padding-left:2.5px;
+   padding-right:2.5px;
+   font-size: 1.2vw;
 }
 
 .pictorial {
@@ -178,49 +179,155 @@ h1 {
   font-family: 'Playfair Display', serif;
   text-transform: uppercase;
   font-weight: bold;
+  font-size:3.5vw;
 }
 
+p {
+  margin-bottom: 20px;
+}
+
+.centerSide {
+		margin: 0 4.5%;
+		position: fixed;
+}
+
+.active {
+    color:#F38A8A;
+    border: 2px solid #F38A8A;
+}
+
+a:hover {
+    background-color: lightgrey;
+    color: grey;
+    border-bottom:2x thin
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
 
 }
 
 </style>
 
-<div class="banner">
+<div class="banner" id= "section0">
   <span id="error">Silver Chain<br /></span>
-  <span id="code">Data Visualisation</span>
+  <span id="code"><span>Data Visualisation</span>
 </div>
 
 <div class="topnav">
-  <a href="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/scg_web_portfolio.html">Home</a>
-  <a href="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/Blog.html">Blog</a>
-  <a href="#contact">Contact</a>
-  <a href="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/About.html">About</a>
+  <a class="navA" href="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/scg_web_portfolio.html">Home</a>
+  <a class="navA" href="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/Blog.html">Blog</a>
+  <a class="navA" href="#contact">Contact</a>
+  <a class="navA" href="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/About.html">About</a>
 </div>
 
 <div class="g-grid">
   <div class="col-side" id="col1">
-  <p>Step 1</p> <br/> 
-  <p>Step 2</p> <br>
-  <p>Step 3</p> <br/>
-  <p>Step 4</p> <br/>
-  <p>Related</p> <br/>
+  <div class="centerSide" id="scrollme"> 
+  <p><a class="active" href="#section0">Step 0</a></p> <br/> 
+  <p><a href="#section1">Step 1</a></p> <br/> 
+  <p><a href="#section2">Step 2</a></p> <br>
+  <p><a href="#section3">Step 3</a></p> <br/>
+  <p><a href="#section4">Step 4</a></p> <br/>
+  <p><a href="#related">Related</a></p>
+  </div>
   </div>
   
   <div class="col" id="col2">
   <h1> Cox Comb Plot </h1>
   <img class="pictorial" src="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/Number of Occassions per Service Type.png"/>
-  <div class="desc-cell">
+  <div class="desc-cell" id="section1">
   <div class="desc">
-  <p> This is a descritption on the Coxcomb plot which is a more advanced version of pie chart. Each "pie section" is based on the frequency if your choice.</p>
+  <p> Section 1: This is a descritption on the Coxcomb plot which is a more advanced version of pie chart. Each "pie section" is based on the frequency if your choice.</p>
+  <p> Section 1: This is a descritption on the Coxcomb plot which is a more advanced version of pie chart. Each "pie section" is based on the frequency if your choice.</p>
+  <p> Section 1: This is a descritption on the Coxcomb plot which is a more advanced version of pie chart. Each "pie section" is based on the frequency if your choice.</p>
+  </div>
+  </div>
+  
+  <div class="desc-cell" id="section2">
+  <div class="desc">
+  <p> Section 2: This is a descritption on the Coxcomb plot which is a more advanced version of pie chart. Each "pie section" is based on the frequency if your choice.</p>
+  <p> Section 2: This is a descritption on the Coxcomb plot which is a more advanced version of pie chart. Each "pie section" is based on the frequency if your choice.</p>
+  <p> Section 2: This is a descritption on the Coxcomb plot which is a more advanced version of pie chart. Each "pie section" is based on the frequency if your choice.</p>
+  <p> Section 2: This is a descritption on the Coxcomb plot which is a more advanced version of pie chart. Each "pie section" is based on the frequency if your choice.</p>
+  </div>
+  </div>
+  
+  <div class="desc-cell" id="section3">
+  <div class="desc">
+  <p> Section 3: This is a descritption on the Coxcomb plot which is a more advanced version of pie chart. Each "pie section" is based on the frequency if your choice.</p>
+  <p> Section 3: This is a descritption on the Coxcomb plot which is a more advanced version of pie chart. Each "pie section" is based on the frequency if your choice.</p>
+  <p> Section 3: This is a descritption on the Coxcomb plot which is a more advanced version of pie chart. Each "pie section" is based on the frequency if your choice.</p>
+  <p> Section 3: This is a descritption on the Coxcomb plot which is a more advanced version of pie chart. Each "pie section" is based on the frequency if your choice.</p>
+  <p> Section 3: This is a descritption on the Coxcomb plot which is a more advanced version of pie chart. Each "pie section" is based on the frequency if your choice.</p>
+  <p> Section 3: This is a descritption on the Coxcomb plot which is a more advanced version of pie chart. Each "pie section" is based on the frequency if your choice.</p>
+  </div>
+  </div>
+  
+  <div class="desc-cell" id="section4">
+  <div class="desc">
+  <p> Section 4: This is a descritption on the Coxcomb plot which is a more advanced version of pie chart. Each "pie section" is based on the frequency if your choice.</p>
+  <p> Section 4: This is a descritption on the Coxcomb plot which is a more advanced version of pie chart. Each "pie section" is based on the frequency if your choice.</p>
+  <p> Section 4: This is a descritption on the Coxcomb plot which is a more advanced version of pie chart. Each "pie section" is based on the frequency if your choice.</p>
+  <p> Section 4: This is a descritption on the Coxcomb plot which is a more advanced version of pie chart. Each "pie section" is based on the frequency if your choice.</p>
+  <p> Section 4: This is a descritption on the Coxcomb plot which is a more advanced version of pie chart. Each "pie section" is based on the frequency if your choice.</p>
   </div>
   </div>
   </div>
   
   <div class="col-side" id="col3">
+  <div class="centerSide"> 
   <p>Box and Whisker Plot</p> <br/> 
   <p>Horizontal Bar Plot with Points</p> <br>
   <p>Performance Gauge</p> <br/>
   <p>Word Cloud</p> <br/>
   <p>Circular Bar plots</p> <br/>
   </div>
+  </div>
 </div>
+
+<script>
+$(document).ready(function () {
+    $(document).on("scroll", onScroll);
+    
+    //smoothscroll
+    $('a[href^="#"]').on('click', function (e) {
+        e.preventDefault();
+        $(document).off("scroll");
+        
+        $('a').each(function () {
+            $(this).removeClass('active');
+        })
+        $(this).addClass('active');
+      
+        var target = this.hash,
+            menu = target;
+        $target = $(target);
+        $('html, body').stop().animate({
+            'scrollTop': $target.offset().top+2
+        }, 500, 'swing', function () {
+            window.location.hash = target;
+            $(document).on("scroll", onScroll);
+        });
+    });
+});
+
+function onScroll(event){
+    var scrollPos = $(document).scrollTop();
+    $('#scrollme a').each(function () {
+        var currLink = $(this);
+        var refElement = $(currLink.attr("href"));
+        if (refElement.position().top <= scrollPos && refElement.position().top + refElement.height() > scrollPos) {
+            $('#scrollme a').removeClass("active");
+            currLink.addClass("active");
+        }
+        else{
+            currLink.removeClass("active");
+        }
+    });
+}
+</script>

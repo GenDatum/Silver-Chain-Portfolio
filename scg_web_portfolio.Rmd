@@ -162,8 +162,6 @@ output: html_document
   filter: none;
   -webkit-filter: grayscale(0%);
 }
-}
-
 </style>
 
 
