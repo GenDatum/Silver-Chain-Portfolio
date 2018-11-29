@@ -89,10 +89,9 @@ output: html_document
     float: left;
     color: white;
     text-align: center;
-    padding: 14px 16px;
+    padding: 1.25vh;
     text-decoration: none;
-    font-size: 20px;
-    font-size: 1vw;
+    font-size: 1.3vw;
 }
 
 /* Change the color of links on hover */
@@ -105,6 +104,66 @@ output: html_document
 .topnav a.active {
     background-color: #1CBDED;
     color: white;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 70px;
+  height: 40px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+<!-- .slider:before { -->
+<!--   position: absolute; -->
+<!--   content: ""; -->
+<!--   height: 26px; -->
+<!--   width: 26px; -->
+<!--   left: 4px; -->
+<!--   bottom: 4px; -->
+<!--   background-color: white; -->
+<!--   -webkit-transition: .4s; -->
+<!--   transition: .4s; -->
+<!-- } -->
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+<!-- input:focus + .slider { -->
+<!--   box-shadow: 0 0 1px #2196F3; -->
+<!-- } -->
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
 }
 
 .g-grid {
@@ -162,6 +221,7 @@ output: html_document
   filter: none;
   -webkit-filter: grayscale(0%);
 }
+
 </style>
 
 
@@ -170,12 +230,40 @@ output: html_document
   <span id="code">Data Visualisation</span>
 </div>
 
+
 <div class="topnav">
-  <a href="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/scg_web_portfolio.html">Home</a>
+  <a class="navA" href="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/home.html">Home</a>
+  <a href="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/scg_web_portfolio.html">Portfolio</a>
   <a href="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/Blog.html">Blog</a>
   <a href="#contact">Contact</a>
   <a href="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/About.html">About</a>
+
+  <label class="switch">
+    <input type="checkbox" id="myCheck" onclick="myFunction()">
+    <span class="slider round"></span>
+  </label>
 </div>
+
+<script>
+
+function myFunction() {
+  var images = document.getElementsByTagName('img'); 
+  var i;
+  var text = document.getElementById("text");
+  var checkBox = document.getElementById("myCheck");
+  if (checkBox.checked == true){
+  for (i = 0; i < images.length; i++) {
+        images[i].style.filter = "none";
+    }
+    text.style.display = "none";
+  } else {
+  for (i = 0; i < images.length; i++) {
+        images[i].style.filter = "grayscale(100%)";
+    }
+    text.style.display = "block";
+  }
+}
+</script>
 
 
 ```{r setup, include=FALSE}

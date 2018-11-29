@@ -214,7 +214,7 @@ $(document).ready(function () {
     padding: 14px 16px;
     text-decoration: none;
     font-size: 20px;
-    font-size: 1vw;
+    font-size: 1.3vw;
 }
 
 /* Change the color of links on hover */
@@ -341,7 +341,7 @@ body, html {
 <p><span id="error">Silver Chain<br /></span> <span id="code"><span>Data Visualisation</span></p>
 </div>
 <div class="topnav">
-<p><a class="navA" href="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/scg_web_portfolio.html">Home</a> <a class="navA" href="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/Blog.html">Blog</a> <a class="navA" href="#contact">Contact</a> <a class="navA" href="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/About.html">About</a></p>
+<p><a class="navA" href="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/home.html">Home</a> <a class="navA" href="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/scg_web_portfolio.html">Portfolio</a> <a class="navA" href="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/Blog.html">Blog</a> <a class="navA" href="#contact">Contact</a> <a class="navA" href="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/About.html">About</a></p>
 </div>
 <div class="g-grid">
 <div id="col1" class="col-side">
@@ -491,7 +491,7 @@ $(document).ready(function () {
         $target = $(target);
         $('html, body').stop().animate({
             'scrollTop': $target.offset().top+2
-        }, -500, 'swing', function () {
+        }, 500, 'swing', function () {
             window.location.hash = target;
             $(document).on("scroll", onScroll);
         });
