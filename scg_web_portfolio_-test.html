@@ -125,8 +125,8 @@ $(document).ready(function () {
 
 .main-container {
   max-width: 2000px;
-  margin-left: auto;
-  margin-right: auto;
+  margin:0px; 
+  padding:0px;
 }
 
 @font-face {
@@ -140,8 +140,6 @@ $(document).ready(function () {
 .banner {
   background-color: #1CBDED;
   color: white;
-  display: flex;
-  flex: 1 1;
   font-size: 32px;
   font-size: 4vw;
   font-family: 'Monoton', cursive;
@@ -291,14 +289,14 @@ input:checked + .slider:before {
 .g-grid {
   display: flex;
   justify-content: space-between;
-  margin-left: -1rem;
+  margin-left: 1rem;
   flex-flow: row wrap;
 }
 
 .g-grid-cell {
   flex: 1 1;
   background-color: white;
-  margin-left: 1rem;
+  margin-right: 1rem;
   margin-bottom: 0.60rem;
   border-style: solid;
   border-color: #F5F5F5;
@@ -315,7 +313,7 @@ input:checked + .slider:before {
 .desc-cell {
   flex: 1 1;
   background-color: #F8F8F8;
-  margin-left: 1rem;
+  margin-right: 1rem;
   margin-bottom: 3rem;
   -moz-box-shadow: 0 0 5px 5px #888;
   -webkit-box-shadow: 0 0 5px 5px #888;
