@@ -356,26 +356,6 @@ input:checked + .slider:before {
 <label class="switch"> <input type="checkbox" id="myCheck" onclick="myFunction()"> <span class="slider round"></span> </label>
 </div>
 </div>
-<script>
-
-function myFunction() {
-  var images = document.getElementsByTagName('img'); 
-  var i;
-  var text = document.getElementById("text");
-  var checkBox = document.getElementById("myCheck");
-  if (checkBox.checked == true){
-  for (i = 0; i < images.length; i++) {
-        images[i].style.filter = "none";
-    }
-    text.style.display = "none";
-  } else {
-  for (i = 0; i < images.length; i++) {
-        images[i].style.filter = "grayscale(100%)";
-    }
-    text.style.display = "block";
-  }
-}
-</script>
 <!-- Row 1 -->
 <div class="g-grid">
 <div class="g-grid-cell">
@@ -551,6 +531,33 @@ function myFunction() {
 </div>
 </div>
 </div>
+<script>
+
+function myFunction() {
+  var images = document.getElementsByClassName('pictorial'); 
+  var i;
+  var text = document.getElementById("text");
+  var checkBox = document.getElementById("myCheck");
+  if (checkBox.checked == true){
+  for (i = 0; i < images.length; i++) {
+        images[i].style.filter = "none";
+        $(".pictorial").hover(function(e) { 
+          $(this).css("filter",e.type === "mouseenter"?"none":"none") 
+        })
+    }
+  } else {
+  for (i = 0; i < images.length; i++) {
+        images[i].style.filter = "grayscale(100%)";
+        $(".pictorial").hover(function(e) { 
+          $(this).css("filter",e.type === "mouseenter"?"none":"grayscale(100%)") 
+        })
+    }
+  }
+
+}
+</script>
+<p>.pictorial:hover {<br />
+filter: none; -webkit-filter: grayscale(0%); }</p>
 
 
 

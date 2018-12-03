@@ -251,26 +251,6 @@ input:checked + .slider:before {
   </div>
 </div>
 
-<script>
-
-function myFunction() {
-  var images = document.getElementsByTagName('img'); 
-  var i;
-  var text = document.getElementById("text");
-  var checkBox = document.getElementById("myCheck");
-  if (checkBox.checked == true){
-  for (i = 0; i < images.length; i++) {
-        images[i].style.filter = "none";
-    }
-    text.style.display = "none";
-  } else {
-  for (i = 0; i < images.length; i++) {
-        images[i].style.filter = "grayscale(100%)";
-    }
-    text.style.display = "block";
-  }
-}
-</script>
 
 
 ```{r setup, include=FALSE}
@@ -459,3 +439,34 @@ knitr::opts_chunk$set(echo = TRUE)
   </div>
   </div>
 </div>
+
+<script>
+
+function myFunction() {
+  var images = document.getElementsByClassName('pictorial'); 
+  var i;
+  var text = document.getElementById("text");
+  var checkBox = document.getElementById("myCheck");
+  if (checkBox.checked == true){
+  for (i = 0; i < images.length; i++) {
+        images[i].style.filter = "none";
+        $(".pictorial").hover(function(e) { 
+          $(this).css("filter",e.type === "mouseenter"?"none":"none") 
+        })
+    }
+  } else {
+  for (i = 0; i < images.length; i++) {
+        images[i].style.filter = "grayscale(100%)";
+        $(".pictorial").hover(function(e) { 
+          $(this).css("filter",e.type === "mouseenter"?"none":"grayscale(100%)") 
+        })
+    }
+  }
+
+}
+</script>
+
+.pictorial:hover {  
+  filter: none;
+  -webkit-filter: grayscale(0%);
+}
