@@ -6,8 +6,8 @@ output: html_document
 
 .main-container {
   max-width: 2000px;
-  margin-left: auto;
-  margin-right: auto;
+  margin:0px; 
+  padding:0px;
 }
 
 @font-face {
@@ -21,8 +21,6 @@ output: html_document
 .banner {
   background-color: #1CBDED;
   color: white;
-  display: flex;
-  flex: 1 1;
   font-size: 32px;
   font-size: 4vw;
   font-family: 'Monoton', cursive;
@@ -172,14 +170,14 @@ input:checked + .slider:before {
 .g-grid {
   display: flex;
   justify-content: space-between;
-  margin-left: -1rem;
+  margin-left: 1rem;
   flex-flow: row wrap;
 }
 
 .g-grid-cell {
   flex: 1 1;
   background-color: white;
-  margin-left: 1rem;
+  margin-right: 1rem;
   margin-bottom: 0.60rem;
   border-style: solid;
   border-color: #F5F5F5;
@@ -196,7 +194,7 @@ input:checked + .slider:before {
 .desc-cell {
   flex: 1 1;
   background-color: #F8F8F8;
-  margin-left: 1rem;
+  margin-right: 1rem;
   margin-bottom: 3rem;
   -moz-box-shadow: 0 0 5px 5px #888;
   -webkit-box-shadow: 0 0 5px 5px #888;
@@ -238,7 +236,7 @@ input:checked + .slider:before {
   <a class="navA" href="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/home.html">Home</a>
   <a href="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/scg_web_portfolio.html">Portfolio</a>
   <a href="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/Blog.html">Blog</a>
-  <a href="#contact">Contact</a>
+  <a class="navA" href="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/Contact.html">Contact</a>
   <a href="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/vertical-timeline-master/index.html">About</a>
 
   <div class="divS">

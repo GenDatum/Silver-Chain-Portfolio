@@ -1,10 +1,9 @@
-
 <style>
 
 .main-container {
   max-width: 2000px;
-  margin-left: auto;
-  margin-right: auto;
+  margin:0px; 
+  padding:0px;
 }
 
 @font-face {
@@ -17,12 +16,10 @@
 
 .banner {
   background-color: #1CBDED;
-  display: flex;
   color: white;
   font-size: 32px;
   font-size: 4vw;
   font-family: 'Monoton', cursive;
-  flex: 1 1;
   text-align: center;
   text-transform: uppercase;
   justify-content: center;
@@ -82,7 +79,7 @@
 }
 
 /* Style the links inside the navigation bar */
-.topnav a {
+.topnav .navA {
     float: left;
     color: white;
     text-align: center;
@@ -93,13 +90,13 @@
 }
 
 /* Change the color of links on hover */
-.topnav a:hover {
+.topnav .navA:hover {
     background-color: #C8C8C8;
     color: black;
 }
 
 /* Add a color to the active/current link */
-.topnav a.active {
+.topnav .navA.active {
     background-color: #1CBDED;
     color: white;
 }
@@ -107,31 +104,56 @@
 .g-grid {
   display: flex;
   justify-content: space-between;
-  margin-left: -1rem;
   flex-flow: row wrap;
+  height:100%;
+  width:100%;
+  border-top: 2px solid rgba(0, 0, 0, 0.12);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.12);
 }
 
-.g-grid-cell {
-  flex: 1 1;
-  background-color: white;
-  margin-left: 1rem;
-  margin-bottom: 0.60rem;
-  border-style: solid;
-  border-color: #F5F5F5;
-  border-width: thin;
-  -moz-box-shadow: 0 0 5px 5px #888;
-  -webkit-box-shadow: 0 0 5px 5px #888;
-  box-shadow: 0 0 1px 1px #F5F5F5;
+.col-side {
+    flex: 1 1;
+    text-align:center;
+    color: grey;
+    font-family: 'Playfair Display', serif;
+    text-transform: uppercase;
 }
 
-.g-grid-cell:hover {
-  border: 2px solid grey;
+.col {
+    flex: 4 1;
+}
+
+#col1 {
+  border-right: 2px solid rgba(0, 0, 0, 0.12);
+  border-left: 2px solid rgba(0, 0, 0, 0.12); 
+  padding-top:40px;
+  font-size: 1.5vw;
+  margin-left: 2px;
+}
+
+#col3 {
+   border-left: 2px solid rgba(0, 0, 0, 0.12); 
+   border-right: 2px solid rgba(0, 0, 0, 0.12);
+   padding-top:40px;
+   padding-left:2.5px;
+   padding-right:2.5px;
+   font-size: 1.2vw;
+   margin-right: 2px;
+}
+
+.pictorial {
+    position:relative;
+    width:65%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .desc-cell {
   flex: 1 1;
   background-color: #F8F8F8;
   margin-left: 1rem;
+  margin-right: 1rem;
   margin-bottom: 3rem;
   -moz-box-shadow: 0 0 5px 5px #888;
   -webkit-box-shadow: 0 0 5px 5px #888;
@@ -141,23 +163,51 @@
 .desc {
     padding-top: 0.6vh;
     padding-bottom: 0.2vh;
-    text-align: center;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    text-align: justify;
     position: relative;
-    font-size: 0.9vw;
+    font-size: 1.2vw;
     font-family: "Times New Roman";
 }
 
-.pictorial {
-    position:relative;
-    width:100%;
-    height:100%;
+h1 {
+  text-align:center;
+  color: grey;
+  font-family: 'Playfair Display', serif;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size:3.5vw;
 }
+
+p {
+  margin-bottom: 20px;
+}
+
+.centerSide {
+	position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  margin: 0 10%;
+}
+
+.active {
+    color:#F38A8A;
+    border: 2px solid #F38A8A;
+
+}
+
+a:hover {
+    background-color: lightgrey;
+    color: grey;
+    border-bottom:2x thin
+}
+
 </style>
 
-
-<div class="banner">
+<div class="banner" id= "section0">
   <span id="error">Silver Chain<br /></span>
-  <span id="code">Data Visualisation</span>
+  <span id="code"><span>Data Visualisation</span>
 </div>
 
 <div class="topnav">
@@ -167,27 +217,3 @@
   <a class="navA" href="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/Contact.html">Contact</a>
   <a class="navA" href="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/vertical-timeline-master/index.html">About</a>
 </div>
-
-<html>
-<head>
-<title>About</title>
-</head>
-
-<body>
-
-<p>
-This webpage is generated to primarily demonstrate the data visualisations produced utilising Silver Chain's data, with the primary audience being internal and external stakeholders of the Health Care group. A secondary objective is to keep track of these products to facilitate the ease of usage for future projects and reporting purposes. 
-
-Credit: T.B.A
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-</p>
-
-<div class="g-grid">
-<div class="g-grid-cell">
-<iframe frameborder="0" scrolling="no" width=100% height=100% src="C:/Users/81034033/Documents/GitHub/Silver-Chain-Portfolio/vertical-timeline-master/index.html"></iframe>
-</div>
-</div>
-
-</body>
-</html>
